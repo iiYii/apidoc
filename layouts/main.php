@@ -184,9 +184,23 @@ $(document).bind('click', function (e) { $('#search-resultbox').hide(); });
 searchBox.bind('click', function(e) { e.stopPropagation(); });
 $('#search-resultbox').bind('click', function(e) { e.stopPropagation(); });
 
-var filename=location.href;
-filename = filename.substr(filename.lastIndexOf('/')+1);
-$("a#edit").attr("href", "https://github.com/iiYii/yii2-cookbook/edit/gh-pages/book/" + filename);
+var href=location.href;
+var array_href = href.split("/");
+var filename = array_href.slice(-1);
+var type = array_href.slice(-2);
+var url;
+switch(type[0])
+{
+    case 'cookbook':
+        url = 'iiYii/yii2-cookbook/edit/gh-pages/book/';
+    break;
+    case 'guide':
+        url = 'yii2-chinesization/yii2-zh-cn/edit/master/guide-zh-CN/';
+    break;
+    default:
+}
+var name = filename[0].split(".");
+$("a#edit").attr("href", "https://github.com/"+ url + name[0] + ".md");
 
 window._config = { showScore: true };
 window.changyan.api.config({
